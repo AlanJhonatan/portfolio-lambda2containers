@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx src/infra/http/fastify.ts"
+    "dev": "tsx watch src/infra/http/fastify.ts"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +12,7 @@
   "type": "module",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "esbuild": "0.28.1",
     "eslint": "^10.8.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.66.0"

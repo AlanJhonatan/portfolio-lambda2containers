@@ -1,7 +1,7 @@
 import fastify from "fastify";
 import { productRoutes } from "./routes.js";
 
-const server = fastify()
+const server = fastify();
 
 const configs = {
     port: 8080

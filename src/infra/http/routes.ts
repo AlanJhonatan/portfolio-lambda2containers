@@ -7,7 +7,7 @@ export async function productRoutes(server: FastifyInstance) {
     })
 
     server.get('/products/:id', async (req: FastifyRequest, reply: FastifyReply) => {
-        return reply.status(200).send({ status: 'Listing by :id !'})
+        return productsController.getProductById(req, reply)
     })
 
     server.post('/products/:id', async (req: FastifyRequest, reply: FastifyReply) => {
