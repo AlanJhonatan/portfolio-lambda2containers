@@ -1,19 +1,9 @@
 import fastify from "fastify";
 import { productRoutes } from "./routes.js";
 
-const server = fastify();
+const app = fastify();
 
-const configs = {
-    port: 8080
-}
+app.register(productRoutes)
 
-server.register(productRoutes)
+export { app };
 
-server.listen({ ...configs }, (err, address) => {
-    if (err) {
-        console.error(err)
-        process.exit(1)
-    }
-
-  console.log(`Server listening at ${address}`)
-})
