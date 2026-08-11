@@ -43,10 +43,15 @@ resource "aws_iam_role" "example" {
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
+resource "aws_iam_role_policy_attachment" "lambda_policy" {
+  role = aws_iam_role.example.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 data "archive_file" "example" {
   type        = "zip"
-  source_file = "${path.module}/dist/lambda.mjs"
-  output_path = "${path.module}/output/function.zip"
+  source_file = "${path.module}/../../dist/lambda.mjs"
+  output_path = "${path.module}/../../output/function.zip"
 }
 
 resource "aws_lambda_function" "example" {
