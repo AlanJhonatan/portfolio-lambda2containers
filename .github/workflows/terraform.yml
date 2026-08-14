@@ -1,6 +1,6 @@
 name: validate minimum requirements
 
-on: 
+on:
     pull_request:
         branches: [main]
     push:
@@ -14,18 +14,21 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   name: checkout repo
-                uses: actions/checkout@v4
-            -   name: setup node
-                uses: actions/setup-node@v4
-                with:
-                    node-version: '24'
-            
-            -   name: install dependencies
-                run: npm ci
-            
-            -   name: eslint check
-                run: npm run ci:lint
+            - name: checkout repo
+              uses: actions/checkout@v4
+            - name: setup node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '24'
 
-            -   name: build
-                run: npm run build
+            - name: install dependencies
+              run: npm ci
+
+            - name: eslint check
+              run: npm run ci:lint
+
+            - name: code format
+              run: npm run format
+
+            - name: build
+              run: npm run build

@@ -7,7 +7,9 @@
     "dev": "tsx watch src/infra/http/fastify.ts",
     "build": "node esbuild.config.mjs",
     "lint": "eslint .",
-    "ci:lint": "eslint . --max-warnings 0"
+    "ci:lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check . --write=false"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,8 @@
     "@eslint/js": "^10.0.1",
     "esbuild": "0.28.1",
     "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.6",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.66.0"
   },
