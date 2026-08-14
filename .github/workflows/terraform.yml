@@ -1,0 +1,26 @@
+name: validate minimum requirements
+
+on: 
+    pull_request:
+        branches: [main]
+    push:
+        branches: [main]
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: "setup node"
+                uses: actions/setup-node@v4
+                with:
+                    node-version: '24'
+            
+            -   name: "install dependencies"
+                run: npm ci
+
+            -   name: Build
+                run: npm run build
