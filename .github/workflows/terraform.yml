@@ -27,8 +27,5 @@ jobs:
             - name: eslint check
               run: npm run ci:lint
 
-            - name: code format
-              run: npm run format
-
             - name: build
               run: npm run build

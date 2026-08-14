@@ -1,33 +1,42 @@
 {
-  "name": "portfolio-lambda2containers",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "tsx watch src/infra/http/fastify.ts",
-    "build": "node esbuild.config.mjs",
-    "lint": "eslint .",
-    "ci:lint": "eslint . --max-warnings 0",
-    "format": "prettier --write .",
-    "format:check": "prettier --check . --write=false"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "esbuild": "0.28.1",
-    "eslint": "^10.8.0",
-    "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.9.6",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.66.0"
-  },
-  "dependencies": {
-    "@fastify/aws-lambda": "^6.4.1",
-    "@types/node": "^26.1.2",
-    "fastify": "^5.11.2",
-    "tsx": "^4.23.8"
-  }
+	"name": "portfolio-lambda2containers",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "tsx watch src/infra/http/fastify.ts",
+		"build": "node esbuild.config.mjs",
+		"lint": "eslint .",
+		"ci:lint": "eslint . --max-warnings 0",
+		"format": "prettier --write .",
+		"format:check": "prettier --check . --write=false",
+		"prepare": "husky"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "module",
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"esbuild": "0.28.1",
+		"eslint": "^10.8.0",
+		"eslint-config-prettier": "^10.1.8",
+		"husky": "^9.1.7",
+		"lint-staged": "^17.3.0",
+		"prettier": "^3.9.6",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.66.0"
+	},
+	"dependencies": {
+		"@fastify/aws-lambda": "^6.4.1",
+		"@types/node": "^26.1.2",
+		"fastify": "^5.11.2",
+		"tsx": "^4.23.8"
+	},
+	"lint-staged": {
+		"*.{js,ts,mjs}": [
+			"eslint --max-warnings 0",
+			"prettier --write"
+		]
+	}
 }
