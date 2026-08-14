@@ -32,11 +32,5 @@
 		"@types/node": "^26.1.2",
 		"fastify": "^5.11.2",
 		"tsx": "^4.23.8"
-	},
-	"lint-staged": {
-		"*.{js,ts,mjs}": [
-			"eslint --max-warnings 0",
-			"prettier --write"
-		]
 	}
 }
