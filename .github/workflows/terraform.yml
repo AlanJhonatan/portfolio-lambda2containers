@@ -14,13 +14,15 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   name: "setup node"
+            -   name: checkout repo
+                uses: actions/checkout@v4
+            -   name: setup node
                 uses: actions/setup-node@v4
                 with:
                     node-version: '24'
             
-            -   name: "install dependencies"
+            -   name: install dependencies
                 run: npm ci
 
-            -   name: Build
+            -   name: build
                 run: npm run build
