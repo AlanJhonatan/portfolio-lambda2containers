@@ -1,0 +1,73 @@
+name: CI/CD
+
+on:
+    pull_request:
+        branches: [main]
+    push:
+        branches: [main]
+
+permissions:
+    contents: read
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout repo
+              uses: actions/checkout@v4
+
+            - name: setup node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '24'
+
+            - name: install dependencies
+              run: npm ci
+
+            - name: lint
+              run: npm run ci:lint
+
+            - name: format check
+              run: npm run format:check
+
+            - name: build
+              run: npm run build
+    terraform:
+        needs: validate
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: read
+
+        defaults:
+            run:
+                working-directory: ./ci/app
+
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+
+            - name: configure aws credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: arn:aws:iam::323270039927:role/github-actions-terraform
+                  aws-region: us-east-1
+
+            - name: setup terraform
+              uses: hashicorp/setup-terraform@v3
+
+            - name: terraform format check
+              run: terraform fmt -check -recursive
+
+            - name: terraform init
+              run: terraform init
+
+            - name: terraform validate
+              run: terraform validate
+
+            - name: terraform plan
+              run: terraform plan
+
+            - name: terraform apply
+              if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+              run: terraform apply -auto-approve
