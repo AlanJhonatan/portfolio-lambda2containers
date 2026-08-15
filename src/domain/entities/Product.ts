@@ -1,19 +1,19 @@
-import { randomUUID } from "node:crypto"
+import { randomUUID } from 'node:crypto'
 
 export class Product {
-    public id: string
-    private name: string
-    
-    constructor(name: string) {
-        this.id = randomUUID()
-        this.name = this.CreateName(name)
-    }
+	public id: string
+	private name: string
 
-    private CreateName(name: string) {
-        if(!name) {
-            throw new Error('Product name cannot be empty !')
-        }
+	constructor(name: string) {
+		this.id = randomUUID()
+		this.name = this.CreateName(name)
+	}
 
-        return name
-    }
+	private CreateName(name: string) {
+		if (!name) {
+			throw new Error('Product name cannot be empty !')
+		}
+
+		return name
+	}
 }
