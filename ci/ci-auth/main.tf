@@ -9,34 +9,37 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
     effect = "Allow"
 
     principals {
-      type = "Federated"
-      identifiers = [ aws_iam_openid_connect_provider.github_actions_oidc.arn ]
+      type        = "Federated"
+      identifiers = [aws_iam_openid_connect_provider.github_actions_oidc.arn]
     }
 
-    actions = [ "sts:AssumeRoleWithWebIdentity" ]
+    actions = ["sts:AssumeRoleWithWebIdentity"]
 
     condition {
-      test = "StringLike"
+      test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values = [ "repo:AlanJhonatan/portfolio-lambda2containers:*" ]
+      values = [
+        "repo:AlanJhonatan/portfolio-lambda2containers:*",
+        "repo:AlanJhonatan@41169099/portfolio-lambda2containers@1324652805:*"
+      ]
     }
 
     condition {
-      test = "StringEquals"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:aud"
-      values = [ "sts.amazonaws.com" ]
+      values   = ["sts.amazonaws.com"]
     }
   }
 }
 
 resource "aws_iam_role" "github_actions_role" {
-  name = "github-actions-terraform"
+  name               = "github-actions-terraform"
   assume_role_policy = data.aws_iam_policy_document.github_actions_assume_role.json
 }
 
 data "aws_iam_policy_document" "github_actions_policy_document" {
   statement {
-    sid = "LambdaAccess"
+    sid    = "LambdaAccess"
     effect = "Allow"
     actions = [
       "lambda:CreateFunction", "lambda:UpdateFunctionCode",
@@ -45,14 +48,14 @@ data "aws_iam_policy_document" "github_actions_policy_document" {
       "lambda:GetPolicy", "lambda:ListVersionsByFunction", "lambda:TagResource",
     ]
 
-    resources = [ "*" ]
+    resources = ["*"]
   }
 
   statement {
-    sid = "ApiGatewayAccess"
-    effect = "Allow"
-    actions = [ "apigateway:*" ]
-    resources = [ "*" ]
+    sid       = "ApiGatewayAccess"
+    effect    = "Allow"
+    actions   = ["apigateway:*"]
+    resources = ["*"]
   }
 
   statement {
@@ -67,27 +70,27 @@ data "aws_iam_policy_document" "github_actions_policy_document" {
   }
 
   statement {
-    sid    = "TerraformStateAccess"
-    effect = "Allow"
-    actions = ["s3:GetObject", "s3:PutObject", "s3:ListBucket"]
+    sid       = "TerraformStateAccess"
+    effect    = "Allow"
+    actions   = ["s3:GetObject", "s3:PutObject", "s3:ListBucket"]
     resources = ["arn:aws:s3:::franca-portfolio-lambda2container-tfstate", "arn:aws:s3:::franca-portfolio-lambda2container-tfstate/*"]
   }
 
   statement {
-    sid    = "DynamoDBTerraformLockAccess"
-    effect = "Allow"
-    actions = [ "dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:DeleteItem", "dynamodb:DescribeTable" ]
+    sid       = "DynamoDBTerraformLockAccess"
+    effect    = "Allow"
+    actions   = ["dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:DeleteItem", "dynamodb:DescribeTable"]
     resources = ["arn:aws:dynamodb:us-east-1:*:table/tfstate-table"]
   }
 }
 
 resource "aws_iam_policy" "github_actions_policy" {
-  name = "github-actions-terraform-permissions"
+  name   = "github-actions-terraform-permissions"
   policy = data.aws_iam_policy_document.github_actions_policy_document.json
 }
 
 resource "aws_iam_role_policy_attachment" "github_actions_attach" {
-  role = aws_iam_role.github_actions_role.name
+  role       = aws_iam_role.github_actions_role.name
   policy_arn = aws_iam_policy.github_actions_policy.arn
 }
 
