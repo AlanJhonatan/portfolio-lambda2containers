@@ -26,9 +26,9 @@ resource "aws_s3_bucket_versioning" "tfstate-versioning" {
 }
 
 resource "aws_dynamodb_table" "tfstate-table" {
-  name           = "tfstate-table"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "LockID"
+  name         = "tfstate-table"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
 
   attribute {
     name = "LockID"
