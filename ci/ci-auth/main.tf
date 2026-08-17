@@ -65,6 +65,7 @@ data "aws_iam_policy_document" "github_actions_policy_document" {
       "iam:CreateRole", "iam:DeleteRole", "iam:GetRole",
       "iam:PassRole", "iam:AttachRolePolicy", "iam:DetachRolePolicy",
       "iam:TagRole", "iam:PutRolePolicy", "iam:DeleteRolePolicy",
+      "iam:ListRolePolicies", "iam:ListAttachedRolePolicies",
     ]
     resources = ["*"]
   }
