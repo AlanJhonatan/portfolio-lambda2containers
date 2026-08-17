@@ -46,6 +46,7 @@ data "aws_iam_policy_document" "github_actions_policy_document" {
       "lambda:UpdateFunctionConfiguration", "lambda:GetFunction",
       "lambda:DeleteFunction", "lambda:AddPermission", "lambda:RemovePermission",
       "lambda:GetPolicy", "lambda:ListVersionsByFunction", "lambda:TagResource",
+      "lambda:GetFunctionCodeSigningConfig"
     ]
 
     resources = ["*"]
