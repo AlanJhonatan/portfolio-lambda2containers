@@ -15,4 +15,12 @@ export class ProductRepositoryInMemo implements IProductRepository {
 	getProductById(id: string): Product | null {
 		return this.products.find((product) => product.id === id) || null
 	}
+
+	createProduct(product: Product): void {
+		this.products.push(product)
+	}
+
+	deleteProduct(id: string): void {
+		this.products = this.products.filter((product) => product.id !== id)
+	}
 }

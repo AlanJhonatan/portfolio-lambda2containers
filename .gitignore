@@ -2,6 +2,8 @@ node_modules/
 dist/
 output/
 
+.agents/
+
 # Terraform
 # Local .terraform directories
 **/.terraform/*

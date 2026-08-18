@@ -17,9 +17,16 @@ export async function productRoutes(server: FastifyInstance) {
 	)
 
 	server.post(
+		'/products',
+		async (req: FastifyRequest, reply: FastifyReply) => {
+			return productsController.createProduct(req, reply)
+		},
+	)
+
+	server.delete(
 		'/products/:id',
 		async (req: FastifyRequest, reply: FastifyReply) => {
-			return reply.status(200).send({ status: 'Created new Product !' })
+			return productsController.deleteProduct(req, reply)
 		},
 	)
 }
