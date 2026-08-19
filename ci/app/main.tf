@@ -17,6 +17,21 @@ resource "aws_apigatewayv2_route" "get_by_id_products" {
   target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
 
+resource "aws_apigatewayv2_route" "create_product" {
+  api_id    = aws_apigatewayv2_api.portfolio_lambda2container_api.id
+  route_key = "POST /products"
+
+  target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "delete_product" {
+  api_id    = aws_apigatewayv2_api.portfolio_lambda2container_api.id
+  route_key = "DELETE /products/{id}"
+
+  target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+
 resource "aws_apigatewayv2_stage" "apig_portfolio_stage" {
   api_id = aws_apigatewayv2_api.portfolio_lambda2container_api.id
   name   = "$default"
