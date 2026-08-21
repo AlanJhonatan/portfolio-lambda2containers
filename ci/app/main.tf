@@ -31,6 +31,34 @@ resource "aws_apigatewayv2_route" "delete_product" {
   target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
 
+resource "aws_apigatewayv2_route" "get_all_orders" {
+  api_id    = aws_apigatewayv2_api.portfolio_lambda2container_api.id
+  route_key = "GET /orders/{id}"
+
+  target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "get_all_orders_by_userid" {
+  api_id    = aws_apigatewayv2_api.portfolio_lambda2container_api.id
+  route_key = "GET /orders/user/{id}"
+
+  target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "craete_order" {
+  api_id    = aws_apigatewayv2_api.portfolio_lambda2container_api.id
+  route_key = "POST /orders"
+
+  target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "delete_order" {
+  api_id    = aws_apigatewayv2_api.portfolio_lambda2container_api.id
+  route_key = "DELETE /orders/{id}"
+
+  target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
 
 resource "aws_apigatewayv2_stage" "apig_portfolio_stage" {
   api_id = aws_apigatewayv2_api.portfolio_lambda2container_api.id
