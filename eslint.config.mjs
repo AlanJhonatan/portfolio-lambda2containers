@@ -10,4 +10,5 @@ export default defineConfig({
 		tseslint.configs.recommended,
 		prettierConfig,
 	],
+	ignores: ['**/*.{md}'],
 })
